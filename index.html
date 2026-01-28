@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DiscCharger</title>
-  <meta name="description" content="DiscCharger – kontakt for kjøp eller mer info." />
 
-  <!-- Montserrat – brukes på DiscCharger-tittel -->
+  <title>DiscCharger – UV-lading av glow discs til disc golf</title>
+  <meta name="description" content="DiscCharger er en enkel og effektiv løsning for UV-lading av glow discs til disc golf og nattspill. Kontakt for kjøp eller mer informasjon." />
+
+  <!-- Montserrat for logo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
@@ -23,7 +24,8 @@
       --accent:#1f6feb;
     }
 
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box }
+
     body{
       margin:0;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
@@ -32,13 +34,12 @@
         radial-gradient(900px 700px at 90% 80%, rgba(0,0,0,.05), transparent 55%),
         var(--bg);
       color:var(--text);
-      line-height:1.35;
     }
 
     .wrap{
       max-width:1040px;
       margin:0 auto;
-      padding:18px 16px 88px; /* room for sticky bar on mobile */
+      padding:18px 16px 96px;
     }
 
     header{
@@ -51,11 +52,9 @@
       font-size:12px;
       color:var(--muted);
       border:1px solid var(--line);
-      background:rgba(255,255,255,.55);
+      background:rgba(255,255,255,.6);
       padding:7px 10px;
       border-radius:999px;
-      white-space:nowrap;
-      backdrop-filter: blur(8px);
     }
 
     .grid{
@@ -66,7 +65,7 @@
     }
 
     @media(max-width:900px){
-      .grid{grid-template-columns:1fr}
+      .grid{ grid-template-columns:1fr }
     }
 
     .card{
@@ -77,43 +76,83 @@
       overflow:hidden;
     }
 
+    /* ===== HERO + THUMBS ===== */
     .media{
       padding:14px;
       background:linear-gradient(180deg,rgba(0,0,0,.03),transparent 60%);
     }
 
-    .media img{
+    .hero-img{
       width:100%;
-      display:block;
+      aspect-ratio:16/10;
+      object-fit:cover;
       border-radius:16px;
       border:1px solid rgba(0,0,0,.08);
-      filter:saturate(1.04) contrast(1.03);
+      transition:opacity .45s ease;
     }
 
-    .content{padding:18px}
+    .hero-img.fade-out{ opacity:0 }
+
+    .thumbs{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+      padding-bottom:6px;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+      cursor:grab;
+    }
+
+    .thumbs::-webkit-scrollbar{ display:none }
+    .thumbs.dragging{ cursor:grabbing }
+
+    .thumbs button{
+      width:92px;
+      height:64px;
+      flex:0 0 auto;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      padding:0;
+      overflow:hidden;
+      cursor:pointer;
+    }
+
+    .thumbs button.active{
+      border-color:rgba(31,111,235,.55);
+      box-shadow:0 10px 28px rgba(31,111,235,.18);
+    }
+
+    .thumbs img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* ===== CONTENT ===== */
+    .content{ padding:18px }
 
     h1{
       font-family:'Montserrat',system-ui;
       font-size:clamp(28px,4vw,44px);
       line-height:1.05;
       margin:0 0 12px;
-      letter-spacing:-0.4px;
     }
 
     .subtitle{
       display:block;
-      margin-top:6px;
       font-size:.55em;
-      font-weight:400;
       color:var(--muted);
-      letter-spacing:0;
+      margin-top:6px;
     }
 
     .lead{
-      font-size:15px;
       color:var(--muted);
+      font-size:15px;
+      margin-bottom:14px;
       max-width:62ch;
-      margin:0 0 14px;
     }
 
     .bullets{
@@ -124,57 +163,62 @@
       gap:10px;
     }
 
-    .bullets li{
-      display:flex;
-      gap:10px;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:rgba(250,249,247,.65);
-    }
+ .bullets li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#faf9f7;
+}
 
-    .dot{
-      width:10px;height:10px;
-      border-radius:50%;
-      background:var(--accent);
-      margin-top:5px;
-      flex-shrink:0;
-    }
 
-    .side{display:grid;gap:18px}
-    .box{padding:16px}
+.dot{
+  width:10px;
+  height:10px;
+  min-width:10px;     /* viktig */
+  min-height:10px;    /* viktig */
+  flex: 0 0 10px;     /* viktig: hindrer flex-shrink */
+  border-radius:50%;
+  background:var(--accent);
+  margin-top:4px;
+  display:inline-block;
+}
+
+
+    /* ===== RIGHT COLUMN ===== */
+    .side{ display:grid; gap:18px }
+
+    .box{ padding:16px }
 
     .box h2{
       font-size:14px;
       text-transform:uppercase;
-      color:rgba(0,0,0,.62);
-      margin:0 0 10px;
-      letter-spacing:.2px;
+      color:rgba(0,0,0,.6);
+      margin-bottom:10px;
     }
-
-    .kv{display:grid;gap:10px}
 
     .row{
       padding:12px;
       border:1px solid var(--line);
       border-radius:16px;
-      background:rgba(255,255,255,.7);
+      margin-bottom:10px;
     }
 
-    .label{font-size:12px;color:rgba(0,0,0,.6);margin-bottom:2px}
+    .label{ font-size:12px; color:rgba(0,0,0,.6) }
 
     .value a{
       color:var(--text);
       text-decoration:none;
-      border-bottom:1px dashed rgba(0,0,0,.30);
+      border-bottom:1px dashed rgba(0,0,0,.3);
     }
-    .value a:hover{ border-bottom-color: rgba(0,0,0,.55); }
 
     .cta{
       display:flex;
       gap:10px;
-      margin-top:10px;
       flex-wrap:wrap;
+      margin-top:10px;
     }
 
     .btn{
@@ -188,18 +232,11 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
-      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-    }
-
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(0,0,0,.18);
-      box-shadow: 0 12px 36px rgba(0,0,0,.10);
     }
 
     .btn.primary{
-      background:rgba(31,111,235,.08);
-      border-color:rgba(31,111,235,.35);
+      background:rgba(31,111,235,.1);
+      border-color:rgba(31,111,235,.4);
     }
 
     footer{
@@ -208,7 +245,7 @@
       color:rgba(0,0,0,.55);
     }
 
-    /* Mobile sticky action bar */
+    /* ===== STICKY MOBILE BAR ===== */
     .sticky{
       position:fixed;
       left:12px;
@@ -218,121 +255,179 @@
       gap:10px;
       padding:10px;
       border-radius:18px;
-      background:rgba(255,255,255,.85);
+      background:rgba(255,255,255,.9);
       border:1px solid rgba(0,0,0,.12);
       box-shadow:0 18px 60px rgba(0,0,0,.16);
-      backdrop-filter: blur(12px);
-      z-index: 50;
+      z-index:50;
     }
-    .sticky a{ flex:1; justify-content:center; white-space:nowrap; }
 
-    @media (max-width:900px){
-      .sticky{ display:flex; }
+    .sticky a{ flex:1; justify-content:center }
+
+    @media(max-width:900px){
+      .sticky{ display:flex }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <header>
-      <span class="pill">Full nettside under arbeid</span>
-    </header>
+  <header>
+    <span class="pill">Full nettside under arbeid</span>
+  </header>
 
-    <div class="grid">
+  <div class="grid">
 
-      <section class="card">
-        <div class="media">
-          <img src="disccharger.jpg" alt="DiscCharger i bruk">
-          <!-- caption fjernet bevisst -->
+    <!-- LEFT -->
+    <section class="card">
+      <div class="media">
+        <img id="hero" class="hero-img"
+             src="bilder/disccharger_v3_rød.jpg"
+             alt="DiscCharger – UV-lading av glow discs til disc golf">
+
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+
+      <div class="content">
+        <h1>
+          DiscCharger
+          <span class="subtitle">UV-lading gjort enkelt</span>
+        </h1>
+
+        <p class="lead">
+          DiscCharger er utviklet for enkel og effektiv UV-lading av glow discs til disc golf.
+          Perfekt for glow-runder og nattspill.
+        </p>
+
+        <ul class="bullets">
+          <li><span class="dot"></span><div><strong>Kontakt direkte</strong><br>Ring, SMS eller Messenger</div></li>
+<li>
+  <span class="dot"></span>
+  <div>
+    <strong>Praktisk info</strong><br>
+    Når du tar kontakt, oppgi gjerne ønsket farge / variant og hvilken disc golf-sekk du bruker.
+    Dette gjør det enklere for meg å se hva jeg har tilgjengelig.
+  </div>
+</li>
+          <li><span class="dot"></span><div><strong>Mer kommer</strong><br>Jeg jobber med komplett nettside</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <aside class="side">
+      <section class="card box">
+        <h2>Kontakt</h2>
+
+        <div class="row">
+          <div class="label">Telefon</div>
+          <div class="value"><a href="tel:+4799299955">+47 992 99 955</a></div>
         </div>
 
-        <div class="content">
-          <h1>
-            DiscCharger
-            <span class="subtitle">UV-lading gjort enkelt</span>
-          </h1>
+        <div class="row">
+          <div class="label">SMS</div>
+          <div class="value"><a href="sms:+4799299955">Send SMS</a></div>
+        </div>
 
-          <p class="lead">
-            DiscCharger er utviklet for enkel og effektiv lading av glow-discs.
-            Ønsker du å kjøpe, eller bare høre mer, er du velkommen til å ta kontakt.
-          </p>
+        <div class="row">
+          <div class="label">Messenger</div>
+          <div class="value">
+            <a href="https://m.me/61567921791136" target="_blank" rel="noopener">
+              Send melding på Messenger
+            </a>
+          </div>
+        </div>
 
-          <ul class="bullets">
-            <li>
-              <span class="dot"></span>
-              <div><strong>Kontakt direkte</strong><br>Ring, SMS eller e-post.</div>
-            </li>
-            <li>
-              <span class="dot"></span>
-              <div><strong>Farge / sekk</strong><br>Oppgi ønsket farge og hvilken disc golf-sekk du bruker.</div>
-            </li>
-            <li>
-              <span class="dot"></span>
-              <div><strong>Mer kommer</strong><br>Jeg jobber med mer info og komplett nettside.</div>
-            </li>
-          </ul>
+        <div class="cta">
+          <a class="btn primary" href="tel:+4799299955">📞 Ring</a>
+          <a class="btn" href="sms:+4799299955">💬 SMS</a>
+          <a class="btn" href="https://m.me/61567921791136" target="_blank" rel="noopener">💬 Messenger</a>
         </div>
       </section>
+    </aside>
 
-      <aside class="side">
-        <section class="card box">
-          <h2>Kontakt</h2>
-
-          <div class="kv">
-            <div class="row">
-              <div class="label">Telefon</div>
-              <div class="value"><a href="tel:+4799299955">+47 992 99 955</a></div>
-            </div>
-
-            <div class="row">
-              <div class="label">SMS</div>
-              <div class="value"><a href="sms:+4799299955">Send melding</a></div>
-            </div>
-
-            <div class="row">
-              <div class="label">E-post</div>
-              <div class="value"><a href="mailto:helland.orjan@gmail.com">helland.orjan@gmail.com</a></div>
-            </div>
-
-            <div class="row">
-              <div class="label">Facebook</div>
-              <div class="value">
-                <a href="https://www.facebook.com/profile.php?id=61567921791136" target="_blank" rel="noopener">DiscCharger på Facebook</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="cta">
-            <a class="btn primary" href="tel:+4799299955">📞 Ring</a>
-            <a class="btn" href="sms:+4799299955">💬 SMS</a>
-            <a class="btn" href="mailto:helland.orjan@gmail.com">✉️ E-post</a>
-          </div>
-        </section>
-
-        <section class="card box">
-          <h2>Praktisk</h2>
-          <p style="margin:0;color:var(--muted);font-size:14px;">
-            Send gjerne en kort melding med hva du ønsker, så svarer jeg med tilgjengelighet.
-          </p>
-        </section>
-      </aside>
-
-    </div>
-
-    <footer>
-      © <span id="y"></span> DiscCharger
-    </footer>
   </div>
 
-  <div class="sticky" aria-label="Hurtigvalg">
-    <a class="btn primary" href="tel:+4799299955">📞 Ring</a>
-    <a class="btn" href="sms:+4799299955">💬 SMS</a>
-    <a class="btn" href="mailto:helland.orjan@gmail.com">✉️ E-post</a>
-  </div>
+  <footer>© <span id="y"></span> DiscCharger</footer>
+</div>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+<div class="sticky">
+  <a class="btn primary" href="tel:+4799299955">📞 Ring</a>
+  <a class="btn" href="sms:+4799299955">💬 SMS</a>
+  <a class="btn" href="https://m.me/61567921791136" target="_blank">💬 Messenger</a>
+</div>
+
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  const images = [
+    "disccharger_v3_rød.jpg",
+    "20260121_223503.jpg",
+    "20260121_223642.jpg",
+    "20260121_223655.jpg",
+    "20260121_223826.jpg",
+    "20260121_223953.jpg",
+    "20251222_195441.jpg",
+    "20260121_223203.jpg"
+
+    ];
+
+  const hero = document.getElementById("hero");
+  const thumbs = document.getElementById("thumbs");
+
+  let index = 0;
+  let timer;
+
+  function show(i){
+    index = i;
+    hero.classList.add("fade-out");
+    setTimeout(()=>{
+      hero.src = "bilder/" + images[index];
+      hero.classList.remove("fade-out");
+    },200);
+
+    [...thumbs.children].forEach((b,n)=>b.classList.toggle("active",n===index));
+  }
+
+  function next(){ show((index+1)%images.length) }
+
+  function start(){
+    clearInterval(timer);
+    timer = setInterval(next,5000);
+  }
+
+  images.forEach((f,i)=>{
+    const b=document.createElement("button");
+    const img=document.createElement("img");
+    img.src="bilder/"+f;
+    b.appendChild(img);
+    b.onclick=()=>{ show(i); start(); };
+    thumbs.appendChild(b);
+  });
+
+  // hover pause
+  hero.onmouseenter=()=>clearInterval(timer);
+  hero.onmouseleave=start;
+
+  // swipe
+  let sx=0;
+  hero.addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});
+  hero.addEventListener("touchend",e=>{
+    const dx=sx-e.changedTouches[0].clientX;
+    if(Math.abs(dx)>40) show((index+(dx>0?1:-1)+images.length)%images.length);
+  });
+
+  // mouse drag thumbs
+  let down=false,startX,scroll;
+  thumbs.onmousedown=e=>{down=true;startX=e.pageX;scroll=thumbs.scrollLeft};
+  window.onmouseup=()=>down=false;
+  thumbs.onmousemove=e=>{
+    if(!down)return;
+    thumbs.scrollLeft=scroll-(e.pageX-startX);
+  };
+
+  show(0);
+  start();
+</script>
 </body>
 </html>
