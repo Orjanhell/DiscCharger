@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DiscCharger</title>
+  <meta name="description" content="DiscCharger – kontakt for kjøp eller mer info." />
+
+  <!-- Montserrat – brukes på DiscCharger-tittel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#faf9f7;
+      --card:#ffffff;
+      --text:#111;
+      --muted:#4b4b4b;
+      --line:rgba(0,0,0,.10);
+      --shadow:0 18px 60px rgba(0,0,0,.12);
+      --radius:22px;
+      --accent:#1f6feb;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      background:
+        radial-gradient(1200px 700px at 20% 0%, rgba(31,111,235,.06), transparent 60%),
+        radial-gradient(900px 700px at 90% 80%, rgba(0,0,0,.05), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.35;
+    }
+
+    .wrap{
+      max-width:1040px;
+      margin:0 auto;
+      padding:18px 16px 88px; /* room for sticky bar on mobile */
+    }
+
+    header{
+      display:flex;
+      justify-content:flex-end;
+      padding:8px 0 16px;
+    }
+
+    .pill{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.55);
+      padding:7px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+      backdrop-filter: blur(8px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    @media(max-width:900px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .media{
+      padding:14px;
+      background:linear-gradient(180deg,rgba(0,0,0,.03),transparent 60%);
+    }
+
+    .media img{
+      width:100%;
+      display:block;
+      border-radius:16px;
+      border:1px solid rgba(0,0,0,.08);
+      filter:saturate(1.04) contrast(1.03);
+    }
+
+    .content{padding:18px}
+
+    h1{
+      font-family:'Montserrat',system-ui;
+      font-size:clamp(28px,4vw,44px);
+      line-height:1.05;
+      margin:0 0 12px;
+      letter-spacing:-0.4px;
+    }
+
+    .subtitle{
+      display:block;
+      margin-top:6px;
+      font-size:.55em;
+      font-weight:400;
+      color:var(--muted);
+      letter-spacing:0;
+    }
+
+    .lead{
+      font-size:15px;
+      color:var(--muted);
+      max-width:62ch;
+      margin:0 0 14px;
+    }
+
+    .bullets{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+    }
+
+    .bullets li{
+      display:flex;
+      gap:10px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(250,249,247,.65);
+    }
+
+    .dot{
+      width:10px;height:10px;
+      border-radius:50%;
+      background:var(--accent);
+      margin-top:5px;
+      flex-shrink:0;
+    }
+
+    .side{display:grid;gap:18px}
+    .box{padding:16px}
+
+    .box h2{
+      font-size:14px;
+      text-transform:uppercase;
+      color:rgba(0,0,0,.62);
+      margin:0 0 10px;
+      letter-spacing:.2px;
+    }
+
+    .kv{display:grid;gap:10px}
+
+    .row{
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:rgba(255,255,255,.7);
+    }
+
+    .label{font-size:12px;color:rgba(0,0,0,.6);margin-bottom:2px}
+
+    .value a{
+      color:var(--text);
+      text-decoration:none;
+      border-bottom:1px dashed rgba(0,0,0,.30);
+    }
+    .value a:hover{ border-bottom-color: rgba(0,0,0,.55); }
+
+    .cta{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:11px 12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(0,0,0,.18);
+      box-shadow: 0 12px 36px rgba(0,0,0,.10);
+    }
+
+    .btn.primary{
+      background:rgba(31,111,235,.08);
+      border-color:rgba(31,111,235,.35);
+    }
+
+    footer{
+      margin-top:18px;
+      font-size:12px;
+      color:rgba(0,0,0,.55);
+    }
+
+    /* Mobile sticky action bar */
+    .sticky{
+      position:fixed;
+      left:12px;
+      right:12px;
+      bottom:12px;
+      display:none;
+      gap:10px;
+      padding:10px;
+      border-radius:18px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(0,0,0,.12);
+      box-shadow:0 18px 60px rgba(0,0,0,.16);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+    .sticky a{ flex:1; justify-content:center; white-space:nowrap; }
+
+    @media (max-width:900px){
+      .sticky{ display:flex; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <span class="pill">Full nettside under arbeid</span>
+    </header>
+
+    <div class="grid">
+
+      <section class="card">
+        <div class="media">
+          <img src="disccharger.jpg" alt="DiscCharger i bruk">
+          <!-- caption fjernet bevisst -->
+        </div>
+
+        <div class="content">
+          <h1>
+            DiscCharger
+            <span class="subtitle">UV-lading gjort enkelt</span>
+          </h1>
+
+          <p class="lead">
+            DiscCharger er utviklet for enkel og effektiv lading av glow-discs.
+            Ønsker du å kjøpe, eller bare høre mer, er du velkommen til å ta kontakt.
+          </p>
+
+          <ul class="bullets">
+            <li>
+              <span class="dot"></span>
+              <div><strong>Kontakt direkte</strong><br>Ring, SMS eller e-post.</div>
+            </li>
+            <li>
+              <span class="dot"></span>
+              <div><strong>Farge / sekk</strong><br>Oppgi ønsket farge og hvilken disc golf-sekk du bruker.</div>
+            </li>
+            <li>
+              <span class="dot"></span>
+              <div><strong>Mer kommer</strong><br>Jeg jobber med mer info og komplett nettside.</div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="card box">
+          <h2>Kontakt</h2>
+
+          <div class="kv">
+            <div class="row">
+              <div class="label">Telefon</div>
+              <div class="value"><a href="tel:+4799299955">+47 992 99 955</a></div>
+            </div>
+
+            <div class="row">
+              <div class="label">SMS</div>
+              <div class="value"><a href="sms:+4799299955">Send melding</a></div>
+            </div>
+
+            <div class="row">
+              <div class="label">E-post</div>
+              <div class="value"><a href="mailto:helland.orjan@gmail.com">helland.orjan@gmail.com</a></div>
+            </div>
+
+            <div class="row">
+              <div class="label">Facebook</div>
+              <div class="value">
+                <a href="https://www.facebook.com/profile.php?id=61567921791136" target="_blank" rel="noopener">DiscCharger på Facebook</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta">
+            <a class="btn primary" href="tel:+4799299955">📞 Ring</a>
+            <a class="btn" href="sms:+4799299955">💬 SMS</a>
+            <a class="btn" href="mailto:helland.orjan@gmail.com">✉️ E-post</a>
+          </div>
+        </section>
+
+        <section class="card box">
+          <h2>Praktisk</h2>
+          <p style="margin:0;color:var(--muted);font-size:14px;">
+            Send gjerne en kort melding med hva du ønsker, så svarer jeg med tilgjengelighet.
+          </p>
+        </section>
+      </aside>
+
+    </div>
+
+    <footer>
+      © <span id="y"></span> DiscCharger
+    </footer>
+  </div>
+
+  <div class="sticky" aria-label="Hurtigvalg">
+    <a class="btn primary" href="tel:+4799299955">📞 Ring</a>
+    <a class="btn" href="sms:+4799299955">💬 SMS</a>
+    <a class="btn" href="mailto:helland.orjan@gmail.com">✉️ E-post</a>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
